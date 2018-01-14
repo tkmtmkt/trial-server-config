@@ -1,0 +1,21 @@
+# Generate an OpenSSL private key with the default values (4096 bits, RSA)
+- openssl_privatekey:
+    path: /home/takamatu/work/ssl/private/brix.localhost.pem
+
+# Generate an OpenSSL public key in PEM format.
+- openssl_publickey:
+    path: /home/takamatu/work/ssl/public/brix.localhost.pem
+    privatekey_path: /home/takamatu/work/ssl/private/brix.localhost.pem
+
+# Generate an OpenSSL Certificate Signing Request
+- openssl_csr:
+    path: /home/takamatu/work/ssl/csr/www.brix.localhost.csr
+    privatekey_path: /home/takamatu/work/ssl/private/brix.localhost.pem
+    common_name: www.brix.localhost
+
+- name: Generate a Self Signed OpenSSL certificate
+  openssl_certificate:
+    path: /home/takamatu/work/ssl/crt/brix.localhost.crt
+    privatekey_path: /home/takamatu/work/ssl/private/brix.localhost.pem
+    csr_path: /home/takamatu/work/ssl/csr/brix.localhost.csr
+    provider: selfsigned

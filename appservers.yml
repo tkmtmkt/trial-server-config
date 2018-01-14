@@ -1,0 +1,5 @@
+---
+- name: appサーバのセットアップ
+  hosts: appservers
+  roles:
+    - openssl
