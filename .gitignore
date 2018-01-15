@@ -1,2 +1,3 @@
 *.retry
 /python-ansible
+/python-pkgs
