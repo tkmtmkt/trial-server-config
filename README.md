@@ -4,17 +4,16 @@ study-ansible
 環境設定
 --------
 
+オンライン環境でインストールし、wheelパッケージをダウンロードする。
+
 ```sh
-$ python -m venv python-ansible
-$ source python-ansible/bin/activate
-$ pip install -r requirements-setup.txt
+$ ./python/install.sh
+```
 
-# パッケージをダウンロードする
-$ pip freeze > requirements.txt
-$ pip wheel -r requirements.txt -w python-pkgs
+オフライン環境でwheelパッケージからインストールする。
 
-# ダウンロードパッケージをインストールする
-$ pip install --no-deps --no-index -r requirements.txt -f python-pkgs
+```sh
+$ ./python/offline-install.sh
 ```
 
 
