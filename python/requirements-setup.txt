@@ -1,4 +1,0 @@
-wheel
-ansible==2.4.2.0
-ansible-generator==1.1.0
-pyOpenSSL==17.5.0
