@@ -1,0 +1,4 @@
+# Load user .bashrc
+[[ -f ~/.bashrc ]] && . ~/.bashrc
+
+. $VIRTUAL_ENV/bin/activate

@@ -28,10 +28,10 @@ $ ansible-galaxy install -r requirements.yml -p roles/
 実行
 ----
 
-python仮想環境を有効化する。
+作業用シェルを起動する。
 
 ```sh
-$ source python/airflow/bin/activate
+$ ./python/shell.sh
 ```
 
 playbookを実行する。
