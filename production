@@ -1,8 +1,11 @@
 [webservers]
-web
+web01
+web02
 
 [bizservers]
-biz
+biz01
+biz02
 
 [appservers]
-brix
+app01
+app02
