@@ -6,4 +6,4 @@ source $SCRIPT_DIR/venv/bin/activate
 
 pip install -r $SCRIPT_DIR/requirements.in.txt
 pip freeze > $SCRIPT_DIR/requirements.txt
-pip wheel -r $SCRIPT_DIR/requirements.txt -w $SCRIPT_DIR/pkgs
+pip wheel -r $SCRIPT_DIR/requirements.txt -w $SCRIPT_DIR/wheels
