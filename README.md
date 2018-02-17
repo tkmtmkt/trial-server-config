@@ -1,73 +1,65 @@
-study-python-ansible
-====================
+study-ruby-serverspec
+=====================
 
-環境設定
---------
-
-オンライン環境でインストールし、wheelパッケージをダウンロードする。
-
-```sh
-$ ./python/install.sh
-```
-
-オフライン環境でwheelパッケージからインストールする。
-
-```sh
-$ ./python/offline-install.sh
-```
-
-
-Role取得
---------
-
-```sh
-$ ansible-galaxy install -r requirements.yml -p roles/
-```
-
-
-実行
+準備
 ----
 
-作業用シェルを起動する。
+オンライン環境でgemをインストールする。
 
 ```sh
-$ ./python/shell.sh
+$ bundle init
+$ cat <<'EOS' >> Gemfile
+gem 'rake'
+gem 'pry'
+gem 'serverspec'
+EOS
+$ bundle install --path=vendor/bundle
 ```
 
-playbookを実行する。
+インストールされたgemをローカル用に保存する。
 
 ```sh
-$ ansible-playbook site.xml -i production
+$ bundle package
 ```
 
-テスト
-------
+cacheに保存されたgemからgemをインストールする。
 
 ```sh
-$ docker-compose up --build -d
+$ bundle install --path=vendor/bundle --local
 ```
 
-```sh
-$ docker-compose exec ansible /bin/bash
-```
+bundleで管理しているgemのコマンドスタブ作成
 
 ```sh
-$ useradd -m -s /bin/bash setup
-$ echo 'setup:manager' | chpasswd
-$ su - setup
-$ cp -rp /ansible ~
+$ bundle binstubs rake pry serverspec
 ```
 
-```sh
-$ cd ~/ansible
-$ ./python/install.sh
-$ ./python/shell.sh
-```
+手順
+----
+
+テストスクリプトのひな形を作成する。
 
 ```sh
-$ ssh-keygen -
-$ ssh-keygen -t rsa -N '' -f ~/.ssh/id_rsa
-$ cp roles/common/files/config ~/.ssh/config
-$ chmod 0600 ~/.ssh/config
-$ ansible all -i production -m user -a 'name=setup' -u root -k
+$ bin/serverspec-init
+```
+```
+Select OS type:
+
+  1) UN*X
+  2) Windows
+
+Select number: 1
+
+Select a backend type:
+
+  1) SSH
+  2) Exec (local)
+
+Select number: 2
+```
+
+テストを実行する。
+
+```sh
+$ bin/rake
 ```
