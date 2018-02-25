@@ -1,4 +1,4 @@
-FROM centos:6
+FROM centos:6.8
 MAINTAINER Takamatsu Makoto <tkmtmkt@gmail.com>
 
 ADD assets /assets
