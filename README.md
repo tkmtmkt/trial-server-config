@@ -54,7 +54,7 @@ $ bundle install --path=vendor/bundle
 $ bundle package
 
 # bundleで管理しているgemのコマンドスタブ作成
-$ bundle binstubs rake pry serverspec
+$ bundle binstubs --force rake pry serverspec
 ```
 
 
@@ -79,7 +79,7 @@ serverspec インストール
 $ bundle install --path=vendor/bundle --local
 
 # bundleで管理しているgemのコマンドスタブ作成
-$ bundle binstubs rake pry serverspec
+$ bundle binstubs --force rake pry serverspec
 ```
 
 
@@ -90,10 +90,14 @@ $ bundle binstubs rake pry serverspec
 
 ```sh
 # 作業用シェルを起動する。
-$ ./python/shell.sh
+$ ./bin/shell.sh
+
+# ユーザ設定
+$ ansible all -i production -m yum -a "name=sudo" -u root -k
+$ ansible all -i production -m user -a "name=setup groups=wheel" -u root -k
 
 # playbookを実行する。
-$ ansible-playbook site.xml -i production
+$ ansible-playbook site.yml -i production
 ```
 
 ### serverspec
