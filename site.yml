@@ -1,4 +1,4 @@
 ---
-- include: webservers.yml
-- include: bizservers.yml
-- include: appservers.yml
+- import_playbook: webservers.yml
+- import_playbook: bizservers.yml
+- import_playbook: appservers.yml
