@@ -54,7 +54,7 @@ $ bundle install --path=vendor/bundle
 $ bundle package
 
 # bundleで管理しているgemのコマンドスタブ作成
-$ bundle binstubs --force rake pry serverspec
+$ bundle binstubs --force rake pry serverspec ansible_spec
 ```
 
 
