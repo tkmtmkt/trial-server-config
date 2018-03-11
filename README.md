@@ -7,30 +7,20 @@ study-server-config
 ```
 ├─README.md
 ├─ansible.cfg
-├─Gemfile
-├─Gemfile.lock
-├─Rakefile
 ├─bin/
 │  ├─make-archive.sh       アーカイブ作成
-│  ├─run-notebook.sh       jupyter notebook起動
-│  ├─serverspec-init
-│  ├─rake
-│  └─pry
+│  └─run-notebook.sh       jupyter notebook起動
 ├─roles/
-├─spec/
-├─python/
-│  ├─bashrc
-│  ├─make-venv.sh          python仮想環境作成
-│  ├─install.sh            インストール
-│  ├─offline-install.sh    オフラインインストール
-│  ├─requirements.in.txt   インストール時に指定するpythonパッケージ一覧
-│  ├─requirements.txt      オフラインインストール時に指定するpythonパッケージ一覧
-│  ├─shell.sh              python仮想環境を有効にした状態のシェル起動
-│  ├─venv/                 python仮想環境
-│  └─wheels/               オフラインインストール用pythonパッケージ
-└─vendor/
-    ├─bundle/               ruby環境(gemインストール領域)
-    └─cache/                オフラインインストール用ruby gems
+└─python/
+    ├─bashrc
+    ├─make-venv.sh          python仮想環境作成
+    ├─install.sh            インストール
+    ├─offline-install.sh    オフラインインストール
+    ├─requirements.in.txt   インストール時に指定するpythonパッケージ一覧
+    ├─requirements.txt      オフラインインストール時に指定するpythonパッケージ一覧
+    ├─shell.sh              python仮想環境を有効にした状態のシェル起動
+    ├─venv/                 python仮想環境
+    └─wheels/               オフラインインストール用pythonパッケージ
 ```
 
 
@@ -39,22 +29,8 @@ study-server-config
 
 ### オンライン環境の設定
 
-ansible, jupyter
-
 ```sh
 $ ./python/install.sh
-```
-
-serverspec
-
-```sh
-$ bundle install --path=vendor/bundle
-
-# オフライン用にパッケージをダウンロード
-$ bundle package
-
-# bundleで管理しているgemのコマンドスタブ作成
-$ bundle binstubs --force rake pry serverspec ansible_spec
 ```
 
 
@@ -67,70 +43,65 @@ $ bundle binstubs --force rake pry serverspec ansible_spec
 $ ./bin/make-archive.sh
 ```
 
-ansible, jupyter インストール
+オフライン環境でwheelパッケージからインストールする。
 
 ```sh
 $ ./python/offline-install.sh
 ```
 
-serverspec インストール
+
+Role取得
+--------
 
 ```sh
-$ bundle install --path=vendor/bundle --local
-
-# bundleで管理しているgemのコマンドスタブ作成
-$ bundle binstubs --force rake pry serverspec
+$ ansible-galaxy install -r requirements.yml -p roles/
 ```
 
 
-手順
+実行
 ----
 
-### ansible
+作業用シェルを起動する。
 
 ```sh
-# 作業用シェルを起動する。
-$ ./bin/shell.sh
-
-# ユーザ設定
-$ ansible all -i production -m yum -a "name=sudo" -u root -k
-$ ansible all -i production -m user -a "name=setup groups=wheel" -u root -k
-
-# playbookを実行する。
-$ ansible-playbook site.yml -i production
+$ ./python/shell.sh
 ```
 
-### serverspec
-
-テストを実行する。
+playbookを実行する。
 
 ```sh
-$ bin/rake
+$ ansible-playbook site.xml -i production
 ```
 
 
-参考
-----
-
-### serverspec
-
-テストスクリプトのひな形を作成する。
+テスト
+------
 
 ```sh
-$ bin/serverspec-init
+$ docker-compose up --build -d
 ```
+
+```sh
+$ docker-compose exec ansible /bin/bash
 ```
-Select OS type:
 
-  1) UN*X
-  2) Windows
+```sh
+$ useradd -m -s /bin/bash setup
+$ echo 'setup:manager' | chpasswd
+$ su - setup
+$ cp -rp /ansible ~
+```
 
-Select number: 1
+```sh
+$ cd ~/ansible
+$ ./python/install.sh
+$ ./python/shell.sh
+```
 
-Select a backend type:
-
-  1) SSH
-  2) Exec (local)
-
-Select number: 2
+```sh
+$ ssh-keygen -
+$ ssh-keygen -t rsa -N '' -f ~/.ssh/id_rsa
+$ cp roles/common/files/config ~/.ssh/config
+$ chmod 0600 ~/.ssh/config
+$ ansible all -i production -m user -a 'name=setup' -u root -k
 ```

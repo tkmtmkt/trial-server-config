@@ -8,6 +8,5 @@ tar czf $BASE_NAME-$(date +%Y%m%d).tar.gz -C $PARENT_DIR \
     --exclude=$BASE_NAME/$BASE_NAME-*.tar.gz \
     --exclude=$BASE_NAME/python/venv \
     --exclude=$BASE_NAME/*.retry \
-    --exclude=$BASE_NAME/vendor/bundle \
     --exclude=$BASE_NAME/docker \
     $BASE_NAME
