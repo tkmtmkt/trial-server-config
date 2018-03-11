@@ -4,12 +4,11 @@ services:
     image: centos-ssh:6.8
     hostname: sysman
     volumes:
+      - ./common/opt/toolbox/:/opt/toolbox/:ro
+      - ./coomon/_dotfiles/:/home/setup/.dotfiles/:ro
+      - ./coomon/_ssh/:/home/setup/.ssh/:ro
       - ./sysman/home/setup/:/home/setup/:rw
       - ../:/home/setup/ansible:rw
-      - ${HOME}/.ssh/:/home/setup/.ssh/:ro
-      - ${HOME}/.dotfiles/:/home/setup/.dotfiles/:ro
-      - ${HOME}/opt/:/home/setup/opt/:ro
-      - ./common/opt/toolbox/:/opt/toolbox/:ro
   web01:
     image: centos-ssh:6.8
     hostname: web01
