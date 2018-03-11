@@ -2,5 +2,6 @@ wheel
 ipython
 jupyter
 ansible
-ansible-generator
-pyOpenSSL
+testinfra
+paramiko
+pytest-xdist
