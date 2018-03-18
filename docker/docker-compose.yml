@@ -5,8 +5,8 @@ services:
     hostname: sysman
     volumes:
       - ./common/opt/toolbox/:/opt/toolbox/:ro
-      - ./coomon/_dotfiles/:/home/setup/.dotfiles/:ro
-      - ./coomon/_ssh/:/home/setup/.ssh/:ro
+      - ./common/_dotfiles/:/home/setup/.dotfiles/:ro
+      - ./common/_ssh/:/home/setup/.ssh/:ro
       - ./sysman/home/setup/:/home/setup/:rw
       - ../:/home/setup/ansible:rw
   web01:
