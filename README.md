@@ -78,24 +78,12 @@ $ ansible-playbook site.xml -i production
 ------
 
 ```sh
-$ docker-compose up --build -d
+$ bin/shell.sh
 ```
 
 ```sh
-$ docker-compose exec ansible /bin/bash
-```
-
-```sh
-$ useradd -m -s /bin/bash setup
-$ echo 'setup:manager' | chpasswd
-$ su - setup
-$ cp -rp /ansible ~
-```
-
-```sh
-$ cd ~/ansible
-$ ./python/install.sh
-$ ./python/shell.sh
+$ py.test ./test
+$ py.test --connection=ansible --inventory=production ./test
 ```
 
 ```sh
