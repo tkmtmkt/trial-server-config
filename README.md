@@ -6,11 +6,16 @@ study-server-config
 
 ```
 ├─README.md
-├─ansible.cfg
 ├─bin/
 │  ├─make-archive.sh       アーカイブ作成
-│  └─run-notebook.sh       jupyter notebook起動
-├─roles/
+│  ├─run-notebook.sh       jupyter notebook起動
+│  └─shell.sh              python仮想環境を有効にした状態のシェル起動
+├─docker/
+├─notebook/
+├─playbook/
+│  ├─ansible.cfg
+│  ├─inventory/
+│  └─roles/
 └─python/
     ├─bashrc
     ├─make-venv.sh          python仮想環境作成
@@ -18,7 +23,6 @@ study-server-config
     ├─offline-install.sh    オフラインインストール
     ├─requirements.in.txt   インストール時に指定するpythonパッケージ一覧
     ├─requirements.txt      オフラインインストール時に指定するpythonパッケージ一覧
-    ├─shell.sh              python仮想環境を有効にした状態のシェル起動
     ├─venv/                 python仮想環境
     └─wheels/               オフラインインストール用pythonパッケージ
 ```
@@ -70,7 +74,8 @@ $ ./python/shell.sh
 playbookを実行する。
 
 ```sh
-$ ansible-playbook site.xml -i production
+$ cd playbook
+$ ansible-playbook site.xml -i inventory/production.ini
 ```
 
 
