@@ -1,4 +1,4 @@
-study-server-config
+trial-server-config
 ===================
 
 構成
